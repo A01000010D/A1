@@ -1,46 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Backend Developer</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.cdnfonts.com/css/thegoodmonolith" rel="stylesheet">
-  <style>
-    body {
-      margin:0;padding:0;background:#000;color:#fff;
-      font-family:'TheGoodMonolith',sans-serif;
-    }
-    .portfolio-content {
-      max-width:600px;margin:8vh auto 0;padding:2rem;
-      background:rgba(0,0,0,.6);border-radius:16px;
-    }
-    .header-flex {display:flex;align-items:center;gap:2rem;}
-    .logo {width:65px;height:65px;border-radius:50%;border:3px solid #fff;}
-    h1 {margin:0 0 .5em 0;}
-    ul {padding-left:1.2em;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note</title>
+    <link href="https://fonts.cdnfonts.com/css/thegoodmonolith" rel="stylesheet">
+    <style>
+        /* Define CSS Variables at the root */
+        :root {
+            --background-color: #000;
+            --text-color: #FFF;
+            --font-family: 'TheGoodMonolith', monospace;
+            --font-size: 1.2em;
+            --line-height: 1.5;
+            --padding-value: 20px;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Make sure html and body take full viewport height */
+            overflow: hidden; /* Prevent scrollbars on html/body */
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-family);
+            font-size: var(--font-size);
+            line-height: var(--line-height);
+            display: flex; /* Use flexbox on body to make textarea fill space */
+        }
+
+        #notePad {
+            flex-grow: 1; /* Allow the textarea to take up remaining space */
+            padding: var(--padding-value);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            border: none;
+            resize: none; /* Disable manual resizing */
+            box-sizing: border-box; /* Include padding in the element's total width and height */
+            outline: none; /* Remove focus outline */
+            font-family: inherit; /* Inherit font from body */
+            font-size: inherit; /* Inherit font size from body */
+            line-height: inherit; /* Inherit line height from body */
+            overflow-y: auto; /* Allow vertical scrolling within the textarea */
+            white-space: pre-wrap; /* Preserve line breaks and wrap text */
+            word-wrap: break-word; /* Break long words to prevent overflow */
+        }
+    </style>
 </head>
 <body>
-  <div class="portfolio-content">
-    <div class="header-flex">
-      <img src="https://avatars.githubusercontent.com/u/207436166?v=4" class="logo">
-      <div>
-        <h1>ABD</h1>
-        <div>Backend Developer</div>
-      </div>
-    </div>
-    <hr>
-    <h2>About Me</h2>
-    <ul>
-      <li>Always looking for backend challenges</li>
-      <li>Passionate about clean, efficient code</li>
-      <li>Love open source &amp; collaboration</li>
-      <li>Strong in algorithms &amp; backend tech</li>
-      <li>Enjoy solving complex problems</li>
-    </ul>
-    <h2>Contact Me</h2>
-    <ul><li>a01000010d@gmail.com</li></ul>
-    <hr>
-  </div>
+    <textarea id="notePad"></textarea>
+
+    <script>
+        const notePad = document.getElementById('notePad');
+
+        // Load saved note when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedNote = localStorage.getItem('simpleNote');
+            if (savedNote) {
+                notePad.value = savedNote;
+            }
+        });
+
+        // Save note to local storage whenever the user types
+        notePad.addEventListener('input', () => {
+            localStorage.setItem('simpleNote', notePad.value);
+        });
+    </script>
 </body>
 </html>
